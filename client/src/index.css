@@ -61,3 +61,7 @@ main {
   border-radius: 8px;
   font-weight: bold;
 }
+
+.img-thumbnail {
+  height: 80px;
+}
