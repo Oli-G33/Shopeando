@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -8,6 +8,10 @@ import { useParams } from 'react-router-dom';
 import Rating from '../Components/Rating';
 import Card from 'react-bootstrap/Card';
 import { Helmet } from 'react-helmet-async';
+import LoadingBox from '../Components/LoadingBox';
+import MessageBox from '../Components/MessageBox';
+import { getError } from '../utils';
+import { Store } from '../Store';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -38,16 +42,25 @@ const ProductScreen = () => {
         const result = await axios.get(`/api/products/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (error) {
-        dispatch({ type: 'FETCH_FAIL', payload: error.message });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(error) });
       }
     };
     fetchData();
   }, [slug]);
 
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+
+  const addToCartHandler = () => {
+    ctxDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity: 1 }
+    });
+  };
+
   return loading ? (
-    <div>Loading...</div>
+    <LoadingBox />
   ) : error ? (
-    <div>{error}</div>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
       <Row>
@@ -86,9 +99,9 @@ const ProductScreen = () => {
                     <Col>Status:</Col>
                     <Col>
                       {product.countInStock > 0 ? (
-                        <h4>In Stock</h4>
+                        <small className="available">In Stock</small>
                       ) : (
-                        <h4>Unavailable</h4>
+                        <small className="unavailable">Unavailable</small>
                       )}
                     </Col>
                   </Row>
@@ -96,7 +109,9 @@ const ProductScreen = () => {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button variant="primary">Add to Cart</Button>
+                      <Button onClick={addToCartHandler} variant="primary">
+                        Add to Cart
+                      </Button>
                     </div>
                   </ListGroup.Item>
                 )}

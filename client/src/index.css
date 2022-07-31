@@ -45,3 +45,19 @@ main {
 .img-large {
   max-width: 100%;
 }
+
+.available {
+  padding: 0.2rem;
+  background-color: #198754;
+  color: #ffffff;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.unavailable {
+  padding: 0.2rem;
+  background-color: #dc3545;
+  color: #ffffff;
+  border-radius: 8px;
+  font-weight: bold;
+}
