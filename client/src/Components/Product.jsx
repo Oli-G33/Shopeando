@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import Rating from './Rating';
 import axios from 'axios';
+import { useContext } from 'react';
 import { Store } from '../Store';
 
-const Product = props => {
+function Product(props) {
   const { product } = props;
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -26,6 +27,7 @@ const Product = props => {
       type: 'CART_ADD_ITEM',
       payload: { ...item, quantity }
     });
+    console.log(product.countInStock);
   };
 
   return (
@@ -49,6 +51,5 @@ const Product = props => {
       </Card.Body>
     </Card>
   );
-};
-
+}
 export default Product;
