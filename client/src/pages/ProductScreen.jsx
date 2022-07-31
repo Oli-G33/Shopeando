@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Rating from '../Components/Rating';
 import Card from 'react-bootstrap/Card';
 import { Helmet } from 'react-helmet-async';
@@ -66,7 +66,7 @@ const ProductScreen = () => {
       type: 'CART_ADD_ITEM',
       payload: { ...product, quantity }
     });
-    Navigate('/cart');
+    navigate('/cart');
   };
 
   return loading ? (
