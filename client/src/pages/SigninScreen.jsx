@@ -6,8 +6,8 @@ import Button from 'react-bootstrap/Button';
 import { Helmet } from 'react-helmet-async';
 import React, { useContext, useEffect, useState } from 'react';
 import { Store } from '../Store';
-// import { toast } from 'react-toastify';
-// import { getError } from '../utils';
+import { toast } from 'react-toastify';
+import { getError } from '../utils';
 
 export default function SigninScreen() {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export default function SigninScreen() {
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigate(redirect || '/');
     } catch (err) {
-      //   toast.error(getError(err));
+      toast.error(getError(err));
     }
   };
 
