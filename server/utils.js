@@ -1,17 +1,17 @@
 import jwt from 'jsonwebtoken';
 import mg from 'mailgun-js';
 
-export const generateToken = user => {
+export const generateToken = (user) => {
   return jwt.sign(
     {
       _id: user._id,
       name: user.name,
       email: user.email,
-      isAdmin: user.isAdmin
+      isAdmin: user.isAdmin,
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: '30d'
+      expiresIn: '30d',
     }
   );
 };
@@ -44,10 +44,10 @@ export const isAdmin = (req, res, next) => {
 export const mailgun = () =>
   mg({
     apiKey: process.env.MAILGUN_API_KEY,
-    domain: process.env.MAILGUN_DOMIAN
+    domain: process.env.MAILGUN_DOMIAN,
   });
 
-export const payOrderEmailTemplate = order => {
+export const payOrderEmailTemplate = (order) => {
   return `<h1>Thanks for shopping with us</h1>
   <p>
   Hi ${order.user.name},</p>
@@ -63,7 +63,7 @@ export const payOrderEmailTemplate = order => {
   <tbody>
   ${order.orderItems
     .map(
-      item => `
+      (item) => `
     <tr>
     <td>${item.name}</td>
     <td align="center">${item.quantity}</td>
@@ -91,6 +91,7 @@ export const payOrderEmailTemplate = order => {
   <td align="right">${order.paymentMethod}</td>
   </tr>
   </table>
+
   <h2>Shipping address</h2>
   <p>
   ${order.shippingAddress.fullName},<br/>

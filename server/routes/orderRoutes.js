@@ -1,11 +1,21 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import Order from '../models/Order.js';
-import User from '../models/User.js';
-// import Product from '../models/productModel.js';
-import { isAuth, isAdmin } from '../utils.js';
+import Order from '../models/orderModel.js';
+import User from '../models/userModel.js';
+import Product from '../models/productModel.js';
+import { isAuth, isAdmin, mailgun, payOrderEmailTemplate } from '../utils.js';
 
 const orderRouter = express.Router();
+
+orderRouter.get(
+  '/',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find().populate('user', 'name');
+    res.send(orders);
+  })
+);
 
 orderRouter.post(
   '/',
@@ -132,7 +142,7 @@ orderRouter.put(
         .messages()
         .send(
           {
-            from: 'Amazona <amazona@mg.yourdomain.com>',
+            from: 'Shopeando <shopeando@mg.yourdomain.com>',
             to: `${order.user.name} <${order.user.email}>`,
             subject: `New order ${order._id}`,
             html: payOrderEmailTemplate(order)
