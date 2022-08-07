@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { Store } from '../Store';
 import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
 
 const defaultLocation = { lat: 45.516, lng: -73.56 };
 const libs = ['places'];
@@ -98,6 +99,9 @@ export default function MapScreen() {
   };
   return (
     <div className="full-box">
+      <Helmet>
+        <title>Select address</title>
+      </Helmet>
       <LoadScript libraries={libs} googleMapsApiKey={googleApiKey}>
         <GoogleMap
           id="smaple-map"
