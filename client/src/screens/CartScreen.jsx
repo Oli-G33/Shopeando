@@ -36,6 +36,12 @@ export default function CartScreen() {
     navigate('/signin?redirect=/shipping');
   };
 
+  const formatPrice = price =>
+    new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(price);
+
   return (
     <div>
       <Helmet>
@@ -82,7 +88,7 @@ export default function CartScreen() {
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col md={3}>€{item.price}</Col>
+                    <Col md={3}>€{formatPrice(item.price)}</Col>
                     <Col md={2}>
                       <Button
                         onClick={() => removeItemHandler(item)}
@@ -104,8 +110,10 @@ export default function CartScreen() {
                 <ListGroup.Item>
                   <h3>
                     Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                    items) : €
-                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
+                    items) :
+                    {formatPrice(
+                      cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
+                    )}
                   </h3>
                 </ListGroup.Item>
                 <ListGroup.Item>

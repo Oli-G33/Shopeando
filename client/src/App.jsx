@@ -7,6 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useContext, useEffect, useState } from 'react';
@@ -84,8 +85,12 @@ function App() {
                 <i className="fas fa-bars"></i>
               </Button>
 
-              <LinkContainer to="/">
-                <Navbar.Brand> Shopeando</Navbar.Brand>
+              <LinkContainer className="logo" to="/">
+                <Image
+                  src="./../images/Shopeando.png"
+                  alt="Shopeando"
+                  style={{ width: 50 }}
+                />
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">

@@ -1,11 +1,8 @@
 {
   "name": "shopeando",
-  "version": "1.0.0",
-  "description": "# Lessons",
-  "main": "index.js",
+  "version": "0.0.1",
   "scripts": {
-    "build": "cd backend && npm install  && cd ../frontend && npm install && npm run build",
-    "start": "node backend/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cd server && npm run start",
+    "prepare": "cd server && npm i"
   }
 }

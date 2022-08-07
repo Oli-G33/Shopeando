@@ -27,13 +27,13 @@ export default function ProfileScreen() {
   const [name, setName] = useState(userInfo.name);
   const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [setConfirmPassword] = useState('');
 
-  const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
-    loadingUpdate: false,
+  const [dispatch] = useReducer(reducer, {
+    loadingUpdate: false
   });
 
-  const submitHandler = async (e) => {
+  const submitHandler = async e => {
     e.preventDefault();
     try {
       const { data } = await axios.put(
@@ -41,21 +41,21 @@ export default function ProfileScreen() {
         {
           name,
           email,
-          password,
+          password
         },
         {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
+          headers: { Authorization: `Bearer ${userInfo.token}` }
         }
       );
       dispatch({
-        type: 'UPDATE_SUCCESS',
+        type: 'UPDATE_SUCCESS'
       });
       ctxDispatch({ type: 'USER_SIGNIN', payload: data });
       localStorage.setItem('userInfo', JSON.stringify(data));
       toast.success('User updated successfully');
     } catch (err) {
       dispatch({
-        type: 'FETCH_FAIL',
+        type: 'FETCH_FAIL'
       });
       toast.error(getError(err));
     }
@@ -72,7 +72,7 @@ export default function ProfileScreen() {
           <Form.Label>Name</Form.Label>
           <Form.Control
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
             required
           />
         </Form.Group>
@@ -81,7 +81,7 @@ export default function ProfileScreen() {
           <Form.Control
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             required
           />
         </Form.Group>
@@ -89,14 +89,14 @@ export default function ProfileScreen() {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={e => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
         <div className="mb-3">

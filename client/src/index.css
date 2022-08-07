@@ -63,7 +63,7 @@ main {
 }
 
 .color-nav {
-  background-color: #5bc0de;
+  background-color: teal;
 }
 
 /* sidebar */
@@ -90,6 +90,10 @@ main {
 }
 .text-bold {
   font-weight: bold;
+}
+.logo {
+  margin: 0 3%;
+  width: 20%;
 }
 
 /* Map */

@@ -27,6 +27,11 @@ function Product(props) {
       payload: { ...item, quantity }
     });
   };
+  const formatPrice = price =>
+    new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(price);
 
   return (
     <Card>
@@ -38,7 +43,7 @@ function Product(props) {
           <Card.Title>{product.name}</Card.Title>
         </Link>
         <Rating rating={product.rating} numReviews={product.numReviews} />
-        <Card.Text>€{product.price}</Card.Text>
+        <Card.Text>{formatPrice(product.price)}</Card.Text>
         {product.countInStock === 0 ? (
           <Button variant="light" disabled>
             Out of stock
